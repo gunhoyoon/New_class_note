@@ -63,3 +63,25 @@ const login = logText<boolean>(true);
 
 // 제네릭을 이용해 타입 정의에 이점이 확실하게 생김
 
+// 인터페이스에 제네릭을 선언하는 방법
+
+// interface Dropdown {
+//   value: string;
+//   selected: boolean;
+// }
+
+// const obj: Dropdown = {
+//   value: "10",
+//   selected: false
+// }
+
+interface Dropdown<T> {
+  value: T;
+  selected: boolean;
+}
+const obj: Dropdown<Number> = {
+  value: 10,
+  selected: false,
+};
+
+// 인터페이스에 제네릭을 활용하므로 안의 속성의 타입을 얼마든지 바꿀 수 있음
