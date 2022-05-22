@@ -62,3 +62,4 @@ str.split('')
 const login = logText<boolean>(true);
 
 // 제네릭을 이용해 타입 정의에 이점이 확실하게 생김
+
