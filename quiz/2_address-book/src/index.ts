@@ -114,4 +114,15 @@ class AddressBook {
   /* ------------------------------------------------ */
 }
 
+// let div = document.querySelector("div")
+// if (div) {
+//   div.innerText
+// }
+// div가 있다면의 조건으로 한번 타입을 확인해줌
+
+let div = document.querySelector("container") as HTMLDivElement;
+  div.innerText;
+// 타입 단언으로 타입을 정해두면 if 거치지않고 바로 사용 가능   
+
+
 new AddressBook();
