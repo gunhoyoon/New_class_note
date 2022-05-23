@@ -14,7 +14,7 @@ class Person {
 // interface class 이런걸로 따지는게 아님 내부적으로 비교하는거임
 var developer: Developer;
 var person: Person;
-developer = person // 오른쪽에 있는 타입이 왼쪽을 할당이 될 수 있냐? 할때 에러가 나옴
+// developer = person // 오른쪽에 있는 타입이 왼쪽을 할당이 될 수 있냐? 할때 에러가 나옴
 // 오른쪽에 있는 타입이 구조적으로 왼쪽에 있는 타입보다 더 컸을 때 호환이 되냐를 비교하는거임
 
 // 함수 호환성
