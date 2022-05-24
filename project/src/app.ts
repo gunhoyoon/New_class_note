@@ -80,7 +80,7 @@ enum CovidStatus {
 }
 
 function fetchCountryInfo(
-  countryName: string,
+  countryName: string | undefined,
   status: CovidStatus
 ): Promise<AxiosResponse<CountrySummaryResponse>> {
   // status params: confirmed, recovered, deaths
@@ -96,16 +96,26 @@ function startApp() {
 
 // events
 function initEvents() {
+  if (!rankList) {
+    return;
+  }
   rankList.addEventListener('click', handleListClick);
 }
+// 타입의 스팩에 맞춰서 정의를 정확히 해줘야함.
 
-async function handleListClick(event: MouseEvent) {
+// const evt1: Event
+// const evt2: UIEvent
+// const evt3: MouseEvent
+// 엘리먼트처럼 확장의 개념 이벤트도
+async function handleListClick(event: Event) {
   let selectedId;
   if (
     event.target instanceof HTMLParagraphElement ||
     event.target instanceof HTMLSpanElement
   ) {
-    selectedId = event.target.parentElement.id;
+    selectedId = event.target.parentElement
+      ? event.target.parentElement.id
+      : undefined;
   }
   if (event.target instanceof HTMLLIElement) {
     selectedId = event.target.id;
@@ -153,6 +163,9 @@ function setDeathsList(data: CountrySummaryResponse) {
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
+    // if (!deathsList) {
+    //   return;
+    // }
     deathsList.appendChild(li);
   });
 }

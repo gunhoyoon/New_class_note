@@ -5,7 +5,9 @@
     "outDir": "./dist",
     "moduleResolution": "Node",
     "lib": ["ES2015", "DOM","DOM.Iterable"],
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "strict": true,
+
    },
    "include": ["./src/**/*"]   
    
