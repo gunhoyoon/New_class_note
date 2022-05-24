@@ -1,5 +1,9 @@
-const a = 18;
-
+// 라이브러리 로딩 문법
+// import 변수명 from '라이브러리 이름';
+// 변수, 함수 임포트 문법
+// import {} from '파일 상대 경로';
+import axios from 'axios';
+import * as Chart from 'chart.js';
 // utils
 function $(selector: string) {
   return document.querySelector(selector);
@@ -16,7 +20,6 @@ function getUnixTimestamp(date: Date) {
 // 타입 호환쪽 에러, Element 도 체계가 있음 >상속 > 상속 개념임
 //deathsTotal 얘를 HTMLParagraphElement 으로 정의했더니
 // 114개 정도가 없다 Element얘보다 HTMLParagraphElement얘가 더 구체적인 개념임
-let a: Element | HTMLElement | HTMLParagraphElement;
 // 유틸함수인 $ 표시때문에 결과가 Element로 추론이 되기때문에 나오는 에러들이 대부분임 HTML에러는
 const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
 const deathsTotal = $('.deaths') as HTMLParagraphElement;
