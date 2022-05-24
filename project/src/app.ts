@@ -1,5 +1,7 @@
+const a = 18;
+
 // utils
-function $(selector:string) {
+function $(selector: string) {
   return document.querySelector(selector);
 }
 function getUnixTimestamp(date: Date) {
@@ -14,13 +16,13 @@ function getUnixTimestamp(date: Date) {
 // 타입 호환쪽 에러, Element 도 체계가 있음 >상속 > 상속 개념임
 //deathsTotal 얘를 HTMLParagraphElement 으로 정의했더니
 // 114개 정도가 없다 Element얘보다 HTMLParagraphElement얘가 더 구체적인 개념임
-var a: Element | HTMLElement | HTMLParagraphElement
+let a: Element | HTMLElement | HTMLParagraphElement;
 // 유틸함수인 $ 표시때문에 결과가 Element로 추론이 되기때문에 나오는 에러들이 대부분임 HTML에러는
 const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
-const deathsTotal = $(".deaths") as HTMLParagraphElement;
+const deathsTotal = $('.deaths') as HTMLParagraphElement;
 // 타입 단언으로 as HTMLParagraphElement; 때려박아버림
 const recoveredTotal = $('.recovered') as HTMLParagraphElement;
-const lastUpdatedTime = $(".last-updated-time") as HTMLParagraphElement; ;
+const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
 const rankList = $('.rank-list');
 const deathsList = $('.deaths-list');
 const recoveredList = $('.recovered-list');
@@ -32,25 +34,24 @@ const recoveredSpinner = createSpinnerElement('recovered-spinner');
 // 예를 들어 p태그면 HTMLParagragphElement;
 // span이면 HTMLSpanElement
 
-
 function createSpinnerElement(id: string) {
-  const wrapperDiv = document.createElement("div");
-  wrapperDiv.setAttribute("id", id);
+  const wrapperDiv = document.createElement('div');
+  wrapperDiv.setAttribute('id', id);
   wrapperDiv.setAttribute(
-    "class",
-    "spinner-wrapper flex justify-center align-center"
+    'class',
+    'spinner-wrapper flex justify-center align-center'
   );
-  const spinnerDiv = document.createElement("div");
-  spinnerDiv.setAttribute("class", "ripple-spinner");
-  spinnerDiv.appendChild(document.createElement("div"));
-  spinnerDiv.appendChild(document.createElement("div"));
+  const spinnerDiv = document.createElement('div');
+  spinnerDiv.setAttribute('class', 'ripple-spinner');
+  spinnerDiv.appendChild(document.createElement('div'));
+  spinnerDiv.appendChild(document.createElement('div'));
   wrapperDiv.appendChild(spinnerDiv);
   return wrapperDiv;
 }
 
 // state
 let isDeathLoading = false;
-let isRecoveredLoading = false;
+const isRecoveredLoading = false;
 
 // api
 function fetchCovidSummary() {
@@ -63,9 +64,9 @@ function fetchCovidSummary() {
 // 넘길 수 있는 값들이 한정되어 있고 값들을 한 눈에 볼 수 있음 자동완성도 가능
 // 조금 더 명확히 정의하다보면 사이트 이펙트가 생기는데 CovidStatus.Confirmed 명확하게 해결가능
 enum CovidStatus {
-  Confirmed = "confirmed",
-  Recovered = "recovered",
-  Deaths = "deaths"
+  Confirmed = 'confirmed',
+  Recovered = 'recovered',
+  Deaths = 'deaths',
 }
 
 function fetchCountryInfo(countryCode: string, status: CovidStatus) {
@@ -103,7 +104,10 @@ async function handleListClick(event: any) {
   clearRecoveredList();
   startLoadingAnimation();
   isDeathLoading = true;
-  const { data: deathResponse } = await fetchCountryInfo(selectedId, CovidStatus.Deaths);
+  const { data: deathResponse } = await fetchCountryInfo(
+    selectedId,
+    CovidStatus.Deaths
+  );
   const { data: recoveredResponse } = await fetchCountryInfo(
     selectedId,
     CovidStatus.Recovered
@@ -123,15 +127,15 @@ async function handleListClick(event: any) {
 
 function setDeathsList(data: any) {
   const sorted = data.sort(
-    (a:any, b:any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
+    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
   );
   sorted.forEach((value: any) => {
-    const li = document.createElement("li");
-    li.setAttribute("class", "list-item-b flex align-center");
-    const span = document.createElement("span");
+    const li = document.createElement('li');
+    li.setAttribute('class', 'list-item-b flex align-center');
+    const span = document.createElement('span');
     span.textContent = value.Cases;
-    span.setAttribute("class", "deaths");
-    const p = document.createElement("p");
+    span.setAttribute('class', 'deaths');
+    const p = document.createElement('p');
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
@@ -152,12 +156,12 @@ function setRecoveredList(data: any) {
     (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
   );
   sorted.forEach((value: any) => {
-    const li = document.createElement("li");
-    li.setAttribute("class", "list-item-b flex align-center");
-    const span = document.createElement("span");
+    const li = document.createElement('li');
+    li.setAttribute('class', 'list-item-b flex align-center');
+    const span = document.createElement('span');
     span.textContent = value.Cases;
-    span.setAttribute("class", "recovered");
-    const p = document.createElement("p");
+    span.setAttribute('class', 'recovered');
+    const p = document.createElement('p');
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
@@ -193,18 +197,18 @@ async function setupData() {
 }
 
 function renderChart(data: any, labels: any) {
-  var ctx = $("#lineChart").getContext("2d");
-  Chart.defaults.color = "#f5eaea";
-  Chart.defaults.font.family = "Exo 2";
+  const ctx = $('#lineChart').getContext('2d');
+  Chart.defaults.color = '#f5eaea';
+  Chart.defaults.font.family = 'Exo 2';
   new Chart(ctx, {
-    type: "line",
+    type: 'line',
     data: {
       labels,
       datasets: [
         {
-          label: "Confirmed for the last two weeks",
-          backgroundColor: "#feb72b",
-          borderColor: "#feb72b",
+          label: 'Confirmed for the last two weeks',
+          backgroundColor: '#feb72b',
+          borderColor: '#feb72b',
           data,
         },
       ],
@@ -249,14 +253,14 @@ function setCountryRanksByConfirmedCases(data: any) {
     (a: any, b: any) => b.TotalConfirmed - a.TotalConfirmed
   );
   sorted.forEach((value: any) => {
-    const li = document.createElement("li");
-    li.setAttribute("class", "list-item flex align-center");
-    li.setAttribute("id", value.Slug);
-    const span = document.createElement("span");
+    const li = document.createElement('li');
+    li.setAttribute('class', 'list-item flex align-center');
+    li.setAttribute('id', value.Slug);
+    const span = document.createElement('span');
     span.textContent = value.TotalConfirmed;
-    span.setAttribute("class", "cases");
-    const p = document.createElement("p");
-    p.setAttribute("class", "country");
+    span.setAttribute('class', 'cases');
+    const p = document.createElement('p');
+    p.setAttribute('class', 'country');
     p.textContent = value.Country;
     li.appendChild(span);
     li.appendChild(p);
